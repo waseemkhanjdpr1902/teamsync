@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamSync Performance Hub · Complete Rating System</title>
+    <title>TeamSync Pro · Complete Performance System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -23,22 +23,21 @@
         body { background: var(--bg-primary); color: var(--text-primary); padding: 20px; transition: 0.2s; }
         .container { max-width: 2000px; margin: 0 auto; }
         
-        .master-header { background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium)); border-radius: 28px; padding: 20px 28px; margin-bottom: 20px; color: white; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .header-title h1 { font-size: 1.5rem; }
-        .badge { background: rgba(255,255,255,0.12); padding: 5px 15px; border-radius: 40px; font-size: 0.75rem; display: inline-flex; gap: 10px; }
-        .header-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+        .master-header { background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium)); border-radius: 24px; padding: 20px 28px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .header-title h1 { font-size: 1.4rem; }
+        .badge { background: rgba(255,255,255,0.12); padding: 5px 15px; border-radius: 40px; font-size: 0.7rem; }
+        .header-stats { display: flex; gap: 12px; }
         .header-stat { background: rgba(255,255,255,0.08); padding: 6px 16px; border-radius: 20px; text-align: center; }
-        .header-stat .number { font-size: 1.5rem; font-weight: 700; color: var(--secondary); }
+        .header-stat .number { font-size: 1.3rem; font-weight: 700; color: var(--secondary); }
         
-        .btn { background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 16px; border-radius: 40px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; font-size: 0.85rem; }
+        .btn { background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 16px; border-radius: 40px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s; font-size: 0.8rem; }
         .btn:hover { background: var(--primary); color: white; transform: translateY(-1px); }
-        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn-primary { background: var(--primary); color: white; }
         .btn-success { background: var(--success); color: white; }
         .btn-warning { background: var(--secondary); color: #1e2a3a; }
         
-        .collab-panel { background: linear-gradient(135deg, var(--primary-dark), #1a2a3a); border-radius: 20px; padding: 12px 20px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
-        .collab-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
-        .export-group { display: flex; gap: 8px; background: rgba(0,0,0,0.2); padding: 5px 12px; border-radius: 50px; }
+        .action-bar { background: var(--bg-secondary); border-radius: 20px; padding: 12px 20px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; }
+        .export-group { display: flex; gap: 8px; flex-wrap: wrap; }
         
         .nav-tabs { display: flex; gap: 5px; margin-bottom: 20px; background: var(--bg-secondary); padding: 6px 10px; border-radius: 50px; flex-wrap: wrap; }
         .nav-tab { padding: 8px 20px; border-radius: 40px; font-weight: 600; background: transparent; color: var(--text-secondary); cursor: pointer; font-size: 0.85rem; }
@@ -55,27 +54,26 @@
         .upload-area:hover { border-color: var(--primary); background: var(--primary-dark); }
         
         .table-container { width: 100%; overflow: auto; border-radius: 20px; border: 1px solid var(--border-color); background: var(--bg-secondary); margin-top: 15px; max-height: 60vh; }
-        .frozen-table { border-collapse: separate; border-spacing: 0; min-width: 2600px; font-size: 0.8rem; }
-        .frozen-table th { background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium)); color: white; padding: 10px 8px; position: sticky; top: 0; }
+        .frozen-table { border-collapse: separate; border-spacing: 0; min-width: 2800px; font-size: 0.75rem; }
+        .frozen-table th { background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium)); color: white; padding: 10px 6px; position: sticky; top: 0; font-weight: 600; }
         .frozen-table td { padding: 8px 6px; border-bottom: 1px solid var(--border-color); }
-        .supervisor-select, .final-rating-select { padding: 4px 8px; border-radius: 20px; font-weight: 600; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: white; cursor: pointer; font-size: 0.75rem; }
+        .editable-input { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 16px; padding: 4px 8px; width: 80px; text-align: center; color: var(--text-primary); }
+        .rating-select { padding: 4px 8px; border-radius: 20px; font-weight: 600; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: white; cursor: pointer; width: 70px; }
         .rating-badge { padding: 2px 10px; border-radius: 20px; font-weight: 600; color: white; display: inline-block; font-size: 0.7rem; }
-        .comment-input { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 20px; padding: 4px 8px; width: 120px; font-size: 0.7rem; }
-        
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: var(--bg-secondary); border-radius: 24px; width: 90%; max-width: 450px; padding: 20px; }
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--bg-secondary); padding: 10px 20px; border-radius: 40px; z-index: 2000; display: none; gap: 8px; border-left: 4px solid var(--success); font-size: 0.85rem; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: var(--bg-secondary); border-radius: 24px; width: 90%; max-width: 500px; padding: 20px; }
         .empty-state { text-align: center; padding: 30px; color: var(--text-secondary); }
         
-        @media (max-width: 700px) { body { padding: 10px; } .btn { padding: 6px 12px; font-size: 0.75rem; } }
+        @media (max-width: 700px) { body { padding: 10px; } .btn { padding: 6px 12px; font-size: 0.7rem; } }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="master-header">
         <div>
-            <h1><i class="fas fa-chart-line"></i> TeamSync Performance</h1>
-            <div class="badge"><i class="fas fa-cloud"></i> Live | Auto-Save | Team Share</div>
+            <h1><i class="fas fa-chart-line"></i> TeamSync Pro · Complete Performance</h1>
+            <div class="badge"><i class="fas fa-sync-alt"></i> All Ratings Editable | Auto-Save</div>
         </div>
         <div class="header-stats">
             <div class="header-stat"><div class="number" id="agentCount">0</div><div>Agents</div></div>
@@ -84,78 +82,79 @@
         </div>
     </div>
 
-    <!-- Collaboration & Export Panel -->
-    <div class="collab-panel">
-        <div><i class="fas fa-share-alt"></i> <strong>Team Tools</strong></div>
-        <div class="collab-buttons">
+    <div class="action-bar">
+        <div class="export-group">
+            <button class="btn btn-primary" onclick="exportMonthlyReport()"><i class="fas fa-file-excel"></i> 📊 Monthly Report</button>
+            <button class="btn btn-primary" onclick="exportAnnualReport()"><i class="fas fa-chart-line"></i> 📈 Annual Report</button>
+            <button class="btn btn-success" onclick="exportAllRatings()"><i class="fas fa-download"></i> All Ratings</button>
+            <button class="btn btn-warning" onclick="exportKRAReport()"><i class="fas fa-bullseye"></i> KRA Targets</button>
+        </div>
+        <div>
             <button class="btn" onclick="saveFullBackup()"><i class="fas fa-database"></i> Backup</button>
             <button class="btn" onclick="document.getElementById('restoreFile').click()"><i class="fas fa-folder-open"></i> Restore</button>
-            <button class="btn btn-primary" onclick="copyShareLink()"><i class="fas fa-link"></i> Share Link</button>
-            <div class="export-group">
-                <button class="btn btn-success" onclick="exportRatingsComplete()"><i class="fas fa-file-excel"></i> All Ratings</button>
-                <button class="btn btn-success" onclick="exportSupervisorRatings()"><i class="fas fa-user-tie"></i> Supervisor Ratings</button>
-                <button class="btn btn-success" onclick="exportAutoRatings()"><i class="fas fa-robot"></i> Auto Ratings</button>
-            </div>
+            <button class="btn" onclick="copyShareLink()"><i class="fas fa-link"></i> Share Link</button>
         </div>
         <input type="file" id="restoreFile" accept=".json" style="display:none" onchange="restoreFromBackup(this)">
     </div>
 
     <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab('monthly')"><i class="fas fa-calendar"></i> Monthly</button>
-        <button class="nav-tab" onclick="switchTab('fy')"><i class="fas fa-chart-line"></i> FY View</button>
+        <button class="nav-tab active" onclick="switchTab('monthly')"><i class="fas fa-calendar"></i> Monthly View</button>
+        <button class="nav-tab" onclick="switchTab('annual')"><i class="fas fa-chart-line"></i> Annual View</button>
+        <button class="nav-tab" onclick="switchTab('kra')"><i class="fas fa-bullseye"></i> KRA Targets</button>
         <button class="nav-tab" onclick="switchTab('ratings')"><i class="fas fa-star"></i> All Ratings</button>
-        <button class="nav-tab" onclick="switchTab('supervisors')"><i class="fas fa-users"></i> Supervisor View</button>
-        <button class="nav-tab" onclick="switchTab('employees')"><i class="fas fa-user-plus"></i> Agents</button>
+        <button class="nav-tab" onclick="switchTab('employees')"><i class="fas fa-users"></i> Agents</button>
     </div>
 
     <div class="year-selector" id="yearSelector"></div>
     <div class="month-selector" id="monthSelector"></div>
 
-    <!-- Monthly Section -->
+    <!-- Monthly View Section -->
     <div id="monthly-section" class="section active">
         <div class="upload-area" onclick="document.getElementById('uploadExcel').click()">
             <i class="fas fa-cloud-upload-alt"></i> Upload Monthly Productivity (Excel/CSV)
-            <small style="display:block">Select a month first, then upload file with Employee Code, Inbound, Outbound, Email, Target, CSAT, Working Days, Absent</small>
+            <small style="display:block">Select month first → Upload file with: Employee Code, Inbound, Outbound, Email, Working Days, Absent</small>
         </div>
         <input type="file" id="uploadExcel" accept=".csv,.xlsx,.xls" style="display:none">
         <div class="table-container">
             <table class="frozen-table">
-                <thead><tr><th>Code</th><th>Name</th><th>Team</th><th>Achievement</th><th>Tasks/Target</th><th>Auto Rating</th><th>Waseem</th><th>Ram</th><th>Rahul</th><th>Final</th><th>Comment</th></tr></thead>
-                <tbody id="monthlyTableBody"><tr><td colspan="11" class="empty-state">Select a month from above</td></tr></tbody>
+                <thead><tr>
+                    <th>Code</th><th>Name</th><th>Team</th>
+                    <th>Achieved</th><th>Target</th><th>Achievement%</th>
+                    <th>Attendance</th><th>Auto Rating</th>
+                    <th>Waseem</th><th>Ram</th><th>Rahul</th>
+                    <th>Final Rating</th><th>Comment</th>
+                </tr></thead>
+                <tbody id="monthlyTableBody"><tr><td colspan="13" class="empty-state">Select a month from above</td></tr></tbody>
             </table>
         </div>
     </div>
 
-    <!-- FY Section -->
-    <div id="fy-section" class="section">
+    <!-- Annual View Section -->
+    <div id="annual-section" class="section">
         <div class="table-container">
             <table class="frozen-table">
-                <thead><tr><th>Employee</th><th>Team</th><th id="fyMonthsHeader"></th><th>Avg</th><th>YTD</th></tr></thead>
-                <tbody id="fyTableBody"></tbody>
+                <thead><tr><th>Employee</th><th>Team</th><th id="annualMonthsHeader"></th><th>Avg Rating</th><th>Annual Rating</th></tr></thead>
+                <tbody id="annualTableBody"></tbody>
             </table>
         </div>
     </div>
 
-    <!-- All Ratings Export View -->
+    <!-- KRA Targets Section -->
+    <div id="kra-section" class="section">
+        <div class="table-container">
+            <table class="frozen-table">
+                <thead><tr><th>Employee</th><th>Team</th><th>Current Month Target</th><th>Override Target</th><th>Achieved</th><th>Achievement%</th><th>Auto Rating</th><th>Override Rating</th></tr></thead>
+                <tbody id="kraTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- All Ratings Section -->
     <div id="ratings-section" class="section">
-        <div style="margin-bottom:15px; display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn btn-success" onclick="exportRatingsComplete()"><i class="fas fa-download"></i> Export All Ratings (Excel)</button>
-            <button class="btn btn-primary" onclick="exportDetailedRatings()"><i class="fas fa-chart-bar"></i> Export with Comments</button>
-        </div>
         <div class="table-container">
             <table class="frozen-table">
-                <thead><tr><th>Code</th><th>Name</th><th>Team</th><th>Process</th><th>Auto Rating</th><th>M. Waseem</th><th>Ram Prakash</th><th>Rahul R.</th><th>Final Rating</th><th>Comment</th><th>Last Updated</th></tr></thead>
+                <thead><tr><th>Code</th><th>Name</th><th>Team</th><th>Auto Rating</th><th>Waseem</th><th>Ram</th><th>Rahul</th><th>Final</th><th>Comment</th></tr></thead>
                 <tbody id="allRatingsBody"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Supervisor Detailed View -->
-    <div id="supervisors-section" class="section">
-        <div class="table-container">
-            <table class="frozen-table">
-                <thead><tr><th>Employee</th><th>Team</th><th>Monthly KRA</th><th>Waseem's Rating</th><th>Ram's Rating</th><th>Rahul's Rating</th><th>Final</th><th>Supervisor Comment</th></tr></thead>
-                <tbody id="supervisorDetailBody"></tbody>
             </table>
         </div>
     </div>
@@ -167,7 +166,6 @@
         <div id="employeeGrid" style="display:grid; gap:10px; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); margin-top:15px;"></div>
     </div>
 
-    <!-- Modals -->
     <div id="employeeModal" class="modal-overlay">
         <div class="modal-content">
             <h3>Add Agent</h3>
@@ -187,7 +185,7 @@
 </div>
 
 <script>
-    // ==================== DATA ====================
+    // ==================== DATA STRUCTURE ====================
     let employees = [
         { code:"935302", name:"Neelam Agarwal", team:"Customer Support", process:"Inbound", status:"active", doj:"2018-10-03" },
         { code:"935756", name:"Pooja Mali", team:"Welcome +Trade Mobi", process:"Outbound", status:"active", doj:"2019-01-17" },
@@ -215,15 +213,23 @@
         { code:"936167", name:"Kavita Mallick", team:"Customer Support", process:"Inbound", status:"active", doj:"2025-01-02" }
     ];
 
-    let financialYears = { "2025-2026": { months: ["Apr 2025","May 2025","Jun 2025","Jul 2025","Aug 2025","Sep 2025","Oct 2025","Nov 2025","Dec 2025","Jan 2026","Feb 2026","Mar 2026"], data: {} } };
+    // Financial years with monthly data
+    let financialYears = {
+        "2025-2026": {
+            months: ["Apr 2025","May 2025","Jun 2025","Jul 2025","Aug 2025","Sep 2025","Oct 2025","Nov 2025","Dec 2025","Jan 2026","Feb 2026","Mar 2026"],
+            data: {} // { month: [{code, achieved, target, attendance}] }
+        }
+    };
     financialYears["2025-2026"].months.forEach(m => { financialYears["2025-2026"].data[m] = []; });
 
-    let ratings = {}; // { code: { auto, waseem, ram, rahul, final, comment, lastUpdated } }
+    // Ratings structure - ALL EDITABLE
+    let ratings = {}; // { code: { auto, waseem, ram, rahul, final, comment, targetOverride } }
+    
     let currentFY = "2025-2026";
     let currentMonth = "";
 
-    // ==================== HELPERS ====================
-    function getAutoRating(achievement) {
+    // ==================== HELPER FUNCTIONS ====================
+    function getAutoRatingFromAchievement(achievement) {
         if (achievement >= 100) return 5;
         if (achievement >= 90) return 4;
         if (achievement >= 75) return 3;
@@ -236,17 +242,26 @@
             if (!ratings[emp.code]) {
                 let ram = (emp.process === "Outbound" || ["Welcome +Trade Mobi","Insurance Renewal","Branch Support","Trade Confirmation","ARGFL Calling"].includes(emp.team)) ? 3 : null;
                 let rahul = (emp.process === "Inbound" || emp.team.includes("Customer Support") || emp.team.includes("EKYC")) ? 3 : null;
-                ratings[emp.code] = { auto: 3, waseem: 3, ram: ram, rahul: rahul, final: 3, comment: "", lastUpdated: new Date().toISOString() };
+                ratings[emp.code] = { 
+                    auto: 3, 
+                    waseem: 3, 
+                    ram: ram, 
+                    rahul: rahul, 
+                    final: 3, 
+                    comment: "", 
+                    targetOverride: null,
+                    lastUpdated: new Date().toISOString() 
+                };
             }
         });
     }
 
     function saveToStorage() {
-        localStorage.setItem("teamsync_data", JSON.stringify({ employees, financialYears, ratings, currentFY }));
+        localStorage.setItem("teamsync_pro_data", JSON.stringify({ employees, financialYears, ratings, currentFY }));
     }
 
     function loadFromStorage() {
-        const saved = localStorage.getItem("teamsync_data");
+        const saved = localStorage.getItem("teamsync_pro_data");
         if (saved) {
             try {
                 const data = JSON.parse(saved);
@@ -274,12 +289,12 @@
             const btn = document.createElement("button");
             btn.className = `year-btn ${fy === currentFY ? "active" : ""}`;
             btn.innerText = fy;
-            btn.onclick = () => { currentFY = fy; currentMonth = ""; renderYearSelector(); renderMonthSelector(); renderMonthly(); renderFYView(); renderAllRatings(); saveToStorage(); };
+            btn.onclick = () => { currentFY = fy; currentMonth = ""; renderYearSelector(); renderMonthSelector(); renderMonthly(); renderAnnual(); renderKRA(); renderAllRatings(); saveToStorage(); };
             container.appendChild(btn);
         });
         const addBtn = document.createElement("button");
         addBtn.className = "year-btn";
-        addBtn.innerText = "+ New";
+        addBtn.innerText = "+ New FY";
         addBtn.onclick = () => {
             const newFY = prompt("Enter FY (e.g., 2026-2027):");
             if (newFY && !financialYears[newFY]) {
@@ -303,65 +318,109 @@
             const btn = document.createElement("button");
             btn.className = `month-btn ${m === currentMonth ? "active" : ""}`;
             btn.innerText = m;
-            btn.onclick = () => { currentMonth = m; renderMonthSelector(); renderMonthly(); renderSupervisorDetail(); showToast(`Selected: ${m}`); };
+            btn.onclick = () => { currentMonth = m; renderMonthSelector(); renderMonthly(); renderKRA(); showToast(`Selected: ${m}`); };
             container.appendChild(btn);
         });
     }
 
     function renderMonthly() {
         const tbody = document.getElementById("monthlyTableBody");
-        if (!currentMonth) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">Select a month</td></tr>'; return; }
+        if (!currentMonth) { tbody.innerHTML = '<tr><td colspan="13" class="empty-state">Select a month</td></tr>'; return; }
         const data = financialYears[currentFY]?.data[currentMonth] || [];
-        if (data.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">No data. Upload file.</td></tr>'; return; }
+        if (data.length === 0) { tbody.innerHTML = '<tr><td colspan="13" class="empty-state">No data. Upload productivity file.</td></tr>'; return; }
         
         tbody.innerHTML = "";
         data.forEach(entry => {
             const emp = employees.find(e => e.code === entry.code);
             if (!emp) return;
-            const ach = (entry.total / entry.target) * 100;
-            const autoRating = getAutoRating(ach);
-            const r = ratings[emp.code] || { waseem:3, ram:null, rahul:null, final:3, comment:"" };
+            const target = ratings[emp.code]?.targetOverride || entry.target || 1000;
+            const achievement = (entry.achieved / target) * 100;
+            const autoRating = getAutoRatingFromAchievement(achievement);
+            const r = ratings[emp.code] || {};
+            
+            // Update auto rating in ratings object
+            ratings[emp.code].auto = autoRating;
             
             tbody.innerHTML += `<tr>
-                <td>${emp.code}</td><td>${emp.name}</td>
-                <td><input class="comment-input" value="${emp.team}" onchange="updateTeam('${emp.code}',this.value)"></td>
-                <td style="font-weight:bold; color:${ach>=100?'#10B981':ach>=90?'#3B82F6':'#F59E0B'}">${ach.toFixed(1)}%</td>
-                <td>${entry.total}/${entry.target}</td>
-                <td><span class="rating-badge" style="background:var(--rating-${autoRating})">${autoRating}★</span></td>
-                <td><select class="supervisor-select" onchange="updateRating('${emp.code}','waseem',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.waseem==v?'selected':''}>${v}★</option>`).join('')}</select></td>
-                <td>${r.ram!==null?`<select class="supervisor-select" onchange="updateRating('${emp.code}','ram',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.ram==v?'selected':''}>${v}★</option>`).join('')}</select>`:'—'}</td>
-                <td>${r.rahul!==null?`<select class="supervisor-select" onchange="updateRating('${emp.code}','rahul',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.rahul==v?'selected':''}>${v}★</option>`).join('')}</select>`:'—'}</td>
-                <td><select class="final-rating-select" style="background:var(--rating-${r.final})" onchange="updateRating('${emp.code}','final',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.final==v?'selected':''}>${v}★</option>`).join('')}</select></td>
-                <td><input class="comment-input" value="${r.comment||''}" onchange="updateComment('${emp.code}',this.value)"></td>
+                <td>${emp.code}</td>
+                <td>${emp.name}</td>
+                <td><input class="editable-input" value="${emp.team}" onchange="updateTeam('${emp.code}',this.value)" style="width:100px"></td>
+                <td>${entry.achieved}</td>
+                <td><input class="editable-input" value="${target}" onchange="updateTarget('${emp.code}',this.value)" style="width:80px"></td>
+                <td style="font-weight:bold; color:${achievement>=100?'#10B981':achievement>=90?'#3B82F6':'#F59E0B'}">${achievement.toFixed(1)}%</td>
+                <td>${entry.attendance || 0}%</td>
+                <td><select class="rating-select" style="background:var(--rating-${autoRating})" onchange="updateAutoRating('${emp.code}',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.auto==v?'selected':''} value="${v}">${v}★</option>`).join('')}</select></td>
+                <td><select class="rating-select" onchange="updateRating('${emp.code}','waseem',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.waseem==v?'selected':''}>${v}★</option>`).join('')}</select></td>
+                <td>${r.ram!==null?`<select class="rating-select" onchange="updateRating('${emp.code}','ram',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.ram==v?'selected':''}>${v}★</option>`).join('')}</select>`:'—'}</td>
+                <td>${r.rahul!==null?`<select class="rating-select" onchange="updateRating('${emp.code}','rahul',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.rahul==v?'selected':''}>${v}★</option>`).join('')}</select>`:'—'}</td>
+                <td><select class="rating-select" style="background:var(--rating-${r.final||3})" onchange="updateRating('${emp.code}','final',this.value)">${[1,2,3,4,5].map(v=>`<option ${r.final==v?'selected':''}>${v}★</option>`).join('')}</select></td>
+                <td><input class="editable-input" value="${r.comment||''}" onchange="updateComment('${emp.code}',this.value)" placeholder="Comment" style="width:120px"></td>
             </tr>`;
         });
         
         document.getElementById("agentCount").innerText = employees.filter(e => e.status === "active").length;
         let total = 0; employees.forEach(e => { total += (ratings[e.code]?.final || 3); });
         document.getElementById("avgRating").innerText = (total / employees.length).toFixed(1);
+        saveToStorage();
     }
 
-    function renderFYView() {
-        const tbody = document.getElementById("fyTableBody");
-        const headerRow = document.getElementById("fyMonthsHeader");
+    function renderAnnual() {
+        const tbody = document.getElementById("annualTableBody");
+        const headerRow = document.getElementById("annualMonthsHeader");
         const months = financialYears[currentFY]?.months || [];
         if (headerRow) headerRow.innerHTML = months.map(m => `<th>${m.substring(0,3)}</th>`).join('');
         tbody.innerHTML = "";
+        
         employees.filter(e => e.status === "active").forEach(emp => {
             let row = `<td>${emp.name}</td><td>${emp.team}</td>`;
             let sum = 0, count = 0;
             months.forEach(mon => {
-                const hasData = (financialYears[currentFY].data[mon] || []).some(d => d.code === emp.code);
-                if (hasData) {
-                    const rat = ratings[emp.code]?.final || 3;
-                    sum += rat; count++;
-                    row += `<td><span class="rating-badge" style="background:var(--rating-${rat})">${rat}★</span></td>`;
-                } else { row += `<td>-</td>`; }
+                const monthData = (financialYears[currentFY].data[mon] || []).find(d => d.code === emp.code);
+                if (monthData) {
+                    const target = ratings[emp.code]?.targetOverride || monthData.target || 1000;
+                    const ach = (monthData.achieved / target) * 100;
+                    const autoRating = getAutoRatingFromAchievement(ach);
+                    const finalRating = ratings[emp.code]?.final || autoRating;
+                    sum += finalRating;
+                    count++;
+                    row += `<td><span class="rating-badge" style="background:var(--rating-${finalRating})">${finalRating}★</span></td>`;
+                } else {
+                    row += `<td>-</td>`;
+                }
             });
             const avg = count ? (sum/count).toFixed(1) : "-";
-            const ytd = count ? Math.round(sum/count) : "-";
-            row += `<td><strong>${avg}</strong></td><td>${ytd!='-'?`<span class="rating-badge" style="background:var(--rating-${ytd})">${ytd}★</span>`:'-'}</td>`;
+            const annual = count ? Math.round(sum/count) : "-";
+            row += `<td><strong>${avg}</strong></td>`;
+            row += `<td>${annual!='-'?`<span class="rating-badge" style="background:var(--rating-${annual})">${annual}★</span>`:'-'}</td>`;
             tbody.innerHTML += `<tr>${row}</tr>`;
+        });
+    }
+
+    function renderKRA() {
+        const tbody = document.getElementById("kraTableBody");
+        if (!currentMonth) { tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Select a month first</td></tr>'; return; }
+        const monthData = financialYears[currentFY]?.data[currentMonth] || [];
+        if (monthData.length === 0) { tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No data for this month</td></tr>'; return; }
+        
+        tbody.innerHTML = "";
+        monthData.forEach(entry => {
+            const emp = employees.find(e => e.code === entry.code);
+            if (!emp) return;
+            const currentTarget = ratings[emp.code]?.targetOverride || entry.target || 1000;
+            const achievement = (entry.achieved / currentTarget) * 100;
+            const autoRating = getAutoRatingFromAchievement(achievement);
+            const overrideRating = ratings[emp.code]?.auto || autoRating;
+            
+            tbody.innerHTML += `<tr>
+                <td>${emp.name}</td>
+                <td>${emp.team}</td>
+                <td>${entry.target || 1000}</td>
+                <td><input class="editable-input" value="${currentTarget}" onchange="updateTarget('${emp.code}',this.value)" style="width:90px"></td>
+                <td>${entry.achieved}</td>
+                <td style="color:${achievement>=100?'#10B981':achievement>=90?'#3B82F6':'#F59E0B'}">${achievement.toFixed(1)}%</td>
+                <td><span class="rating-badge" style="background:var(--rating-${autoRating})">${autoRating}★</span></td>
+                <td><select class="rating-select" onchange="updateAutoRating('${emp.code}',this.value)">${[1,2,3,4,5].map(v=>`<option ${overrideRating==v?'selected':''} value="${v}">${v}★</option>`).join('')}</select></td>
+            </tr>`;
         });
     }
 
@@ -370,97 +429,148 @@
         tbody.innerHTML = "";
         employees.filter(e => e.status === "active").forEach(emp => {
             const r = ratings[emp.code] || {};
-            const monthlyData = (financialYears[currentFY]?.data[currentMonth] || []).find(d => d.code === emp.code);
-            let autoRating = "—";
-            if (monthlyData) {
-                const ach = (monthlyData.total / monthlyData.target) * 100;
-                autoRating = getAutoRating(ach);
-            }
             tbody.innerHTML += `<tr>
-                <td>${emp.code}</td><td>${emp.name}</td><td>${emp.team}</td><td>${emp.process}</td>
-                <td><span class="rating-badge" style="background:var(--rating-${autoRating})">${autoRating}★</span></td>
+                <td>${emp.code}</td><td>${emp.name}</td><td>${emp.team}</td>
+                <td><span class="rating-badge" style="background:var(--rating-${r.auto||3})">${r.auto||3}★</span></td>
                 <td><span class="rating-badge" style="background:var(--rating-${r.waseem||3})">${r.waseem||3}★</span></td>
                 <td>${r.ram?`<span class="rating-badge" style="background:var(--rating-${r.ram})">${r.ram}★</span>`:'—'}</td>
                 <td>${r.rahul?`<span class="rating-badge" style="background:var(--rating-${r.rahul})">${r.rahul}★</span>`:'—'}</td>
                 <td><span class="rating-badge" style="background:var(--rating-${r.final||3})">${r.final||3}★</span></td>
                 <td>${r.comment||''}</td>
-                <td>${r.lastUpdated?.split('T')[0]||''}</td>
             </tr>`;
         });
     }
 
-    function renderSupervisorDetail() {
-        const tbody = document.getElementById("supervisorDetailBody");
-        tbody.innerHTML = "";
-        employees.filter(e => e.status === "active").forEach(emp => {
-            const r = ratings[emp.code] || {};
-            const monthlyData = (financialYears[currentFY]?.data[currentMonth] || []).find(d => d.code === emp.code);
-            let kra = "—";
-            if (monthlyData) {
-                const ach = (monthlyData.total / monthlyData.target) * 100;
-                kra = `${ach.toFixed(1)}%`;
+    // ==================== UPDATE FUNCTIONS (ALL EDITABLE) ====================
+    window.updateRating = function(code, field, val) {
+        if (!ratings[code]) ratings[code] = {};
+        ratings[code][field] = parseInt(val);
+        ratings[code].lastUpdated = new Date().toISOString();
+        saveToStorage();
+        renderMonthly();
+        renderAnnual();
+        renderAllRatings();
+        showToast(`${field} updated to ${val}★`);
+    };
+    
+    window.updateAutoRating = function(code, val) {
+        if (!ratings[code]) ratings[code] = {};
+        ratings[code].auto = parseInt(val);
+        saveToStorage();
+        renderMonthly();
+        renderKRA();
+        renderAllRatings();
+        showToast(`Auto rating overridden to ${val}★`);
+    };
+    
+    window.updateTarget = function(code, val) {
+        if (!ratings[code]) ratings[code] = {};
+        ratings[code].targetOverride = parseFloat(val);
+        saveToStorage();
+        renderMonthly();
+        renderKRA();
+        showToast(`Target updated to ${val}`);
+    };
+    
+    window.updateTeam = function(code, team) {
+        const emp = employees.find(e => e.code === code);
+        if (emp) { emp.team = team; saveToStorage(); renderMonthly(); renderAnnual(); renderAllRatings(); showToast("Team updated"); }
+    };
+    
+    window.updateComment = function(code, comment) {
+        if (ratings[code]) ratings[code].comment = comment;
+        saveToStorage();
+        showToast("Comment saved");
+    };
+    
+    // ==================== EXPORT REPORTS ====================
+    function exportMonthlyReport() {
+        if (!currentMonth) { showToast("Select a month first!"); return; }
+        const data = financialYears[currentFY]?.data[currentMonth] || [];
+        const wsData = [["Employee Code", "Employee Name", "Team", "Achieved", "Target", "Achievement%", "Auto Rating", "Waseem Rating", "Ram Rating", "Rahul Rating", "Final Rating", "Comment"]];
+        
+        data.forEach(entry => {
+            const emp = employees.find(e => e.code === entry.code);
+            if (emp) {
+                const target = ratings[emp.code]?.targetOverride || entry.target || 1000;
+                const ach = (entry.achieved / target) * 100;
+                const r = ratings[emp.code] || {};
+                wsData.push([emp.code, emp.name, emp.team, entry.achieved, target, ach.toFixed(1)+'%', r.auto||3, r.waseem||3, r.ram||'', r.rahul||'', r.final||3, r.comment||'']);
             }
-            tbody.innerHTML += `<tr>
-                <td>${emp.name}</td><td>${emp.team}</td><td>${kra}</td>
-                <td><span style="background:var(--rating-${r.waseem||3}); padding:4px 12px; border-radius:20px;">${r.waseem||3}★</span></td>
-                <td>${r.ram?`<span style="background:var(--rating-${r.ram}); padding:4px 12px; border-radius:20px;">${r.ram}★</span>`:'—'}</td>
-                <td>${r.rahul?`<span style="background:var(--rating-${r.rahul}); padding:4px 12px; border-radius:20px;">${r.rahul}★</span>`:'—'}</td>
-                <td><strong style="background:var(--rating-${r.final||3}); padding:4px 12px; border-radius:20px;">${r.final||3}★</strong></td>
-                <td>${r.comment||''}</td>
-            </tr>`;
         });
+        
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsData), `Monthly_${currentMonth}`);
+        XLSX.writeFile(wb, `Monthly_Report_${currentMonth}_${new Date().toISOString().slice(0,10)}.xlsx`);
+        showToast("Monthly report exported");
     }
-
-    // ==================== EXPORT FUNCTIONS ====================
-    function exportRatingsComplete() {
+    
+    function exportAnnualReport() {
+        const months = financialYears[currentFY]?.months || [];
+        const wsData = [["Employee Name", "Team", ...months, "Average Rating", "Annual Rating"]];
+        
+        employees.filter(e => e.status === "active").forEach(emp => {
+            const row = [emp.name, emp.team];
+            let sum = 0, count = 0;
+            months.forEach(mon => {
+                const monthData = (financialYears[currentFY].data[mon] || []).find(d => d.code === emp.code);
+                if (monthData) {
+                    const rating = ratings[emp.code]?.final || 3;
+                    sum += rating;
+                    count++;
+                    row.push(`${rating}★`);
+                } else {
+                    row.push("-");
+                }
+            });
+            const avg = count ? (sum/count).toFixed(1) : "-";
+            const annual = count ? Math.round(sum/count) : "-";
+            row.push(avg, `${annual}★`);
+            wsData.push(row);
+        });
+        
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsData), `Annual_${currentFY}`);
+        XLSX.writeFile(wb, `Annual_Report_${currentFY}_${new Date().toISOString().slice(0,10)}.xlsx`);
+        showToast("Annual report exported");
+    }
+    
+    function exportAllRatings() {
         const wsData = [["Employee Code", "Employee Name", "Team", "Process", "Auto Rating", "Waseem Rating", "Ram Rating", "Rahul Rating", "Final Rating", "Comment", "Last Updated"]];
         employees.forEach(emp => {
             const r = ratings[emp.code] || {};
-            wsData.push([emp.code, emp.name, emp.team, emp.process, r.auto || 3, r.waseem || 3, r.ram || '', r.rahul || '', r.final || 3, r.comment || '', r.lastUpdated || '']);
+            wsData.push([emp.code, emp.name, emp.team, emp.process, r.auto||3, r.waseem||3, r.ram||'', r.rahul||'', r.final||3, r.comment||'', r.lastUpdated?.split('T')[0]||'']);
         });
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsData), "Complete_Ratings");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsData), "All_Ratings");
         XLSX.writeFile(wb, `All_Ratings_${new Date().toISOString().slice(0,10)}.xlsx`);
-        showToast("Complete ratings exported");
+        showToast("All ratings exported");
     }
-
-    function exportSupervisorRatings() {
-        const wsData = [["Employee", "Team", "Waseem Rating", "Ram Rating", "Rahul Rating", "Final", "Supervisor Comment"]];
-        employees.forEach(emp => {
-            const r = ratings[emp.code] || {};
-            wsData.push([emp.name, emp.team, r.waseem || 3, r.ram || 'N/A', r.rahul || 'N/A', r.final || 3, r.comment || '']);
-        });
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsData), "Supervisor_Ratings");
-        XLSX.writeFile(wb, `Supervisor_Ratings_${new Date().toISOString().slice(0,10)}.xlsx`);
-        showToast("Supervisor ratings exported");
-    }
-
-    function exportAutoRatings() {
-        const wsData = [["Employee", "Team", "Month", "Achievement", "Auto Rating (System Generated)"]];
+    
+    function exportKRAReport() {
+        const wsData = [["Employee", "Team", "Default Target", "Override Target", "Achieved", "Achievement%", "Auto Rating", "Manual Rating"]];
         const months = financialYears[currentFY]?.months || [];
         months.forEach(month => {
             const data = financialYears[currentFY].data[month] || [];
             data.forEach(entry => {
                 const emp = employees.find(e => e.code === entry.code);
                 if (emp) {
-                    const ach = (entry.total / entry.target) * 100;
-                    wsData.push([emp.name, emp.team, month, ach.toFixed(1)+'%', getAutoRating(ach)+'★']);
+                    const defaultTarget = entry.target || 1000;
+                    const overrideTarget = ratings[emp.code]?.targetOverride || defaultTarget;
+                    const ach = (entry.achieved / overrideTarget) * 100;
+                    wsData.push([emp.name, emp.team, defaultTarget, overrideTarget, entry.achieved, ach.toFixed(1)+'%', getAutoRatingFromAchievement(ach), ratings[emp.code]?.auto || '']);
                 }
             });
         });
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsData), "Auto_Ratings");
-        XLSX.writeFile(wb, `Auto_Ratings_${new Date().toISOString().slice(0,10)}.xlsx`);
-        showToast("Auto ratings exported");
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(wsData), "KRA_Targets");
+        XLSX.writeFile(wb, `KRA_Report_${new Date().toISOString().slice(0,10)}.xlsx`);
+        showToast("KRA report exported");
     }
-
-    function exportDetailedRatings() {
-        exportRatingsComplete();
-    }
-
+    
+    // ==================== BACKUP & SHARE ====================
     function saveFullBackup() {
-        const backup = { employees, financialYears, ratings, currentFY, version: "1.0", exportDate: new Date().toISOString() };
+        const backup = { employees, financialYears, ratings, currentFY, version: "2.0", exportDate: new Date().toISOString() };
         const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
@@ -468,7 +578,7 @@
         a.click();
         showToast("Backup saved");
     }
-
+    
     function restoreFromBackup(input) {
         const file = input.files[0];
         if (!file) return;
@@ -485,48 +595,23 @@
                 renderYearSelector();
                 renderMonthSelector();
                 renderMonthly();
-                renderFYView();
+                renderAnnual();
+                renderKRA();
                 renderAllRatings();
-                renderSupervisorDetail();
                 showToast("Restored successfully");
             } catch(err) { showToast("Invalid backup file"); }
         };
         reader.readAsText(file);
         input.value = '';
     }
-
+    
     function copyShareLink() {
         const backup = { employees, financialYears, ratings, currentFY };
         const encoded = btoa(encodeURIComponent(JSON.stringify(backup)));
         const url = `${window.location.origin}${window.location.pathname}#data=${encoded}`;
         navigator.clipboard.writeText(url);
-        showToast("Share link copied! Team members can paste in browser");
+        showToast("Share link copied!");
     }
-
-    // ==================== UPDATE FUNCTIONS ====================
-    window.updateRating = function(code, field, val) {
-        if (!ratings[code]) ratings[code] = {};
-        ratings[code][field] = parseInt(val);
-        ratings[code].lastUpdated = new Date().toISOString();
-        if (field === 'final') ratings[code].final = parseInt(val);
-        saveToStorage();
-        renderMonthly();
-        renderAllRatings();
-        renderSupervisorDetail();
-        renderFYView();
-        showToast(`${field} updated`);
-    };
-    
-    window.updateTeam = function(code, team) {
-        const emp = employees.find(e => e.code === code);
-        if (emp) { emp.team = team; saveToStorage(); renderMonthly(); renderAllRatings(); renderSupervisorDetail(); showToast("Team updated"); }
-    };
-    
-    window.updateComment = function(code, comment) {
-        if (ratings[code]) ratings[code].comment = comment;
-        saveToStorage();
-        showToast("Comment saved");
-    };
     
     // ==================== FILE UPLOAD ====================
     document.getElementById('uploadExcel').addEventListener('change', function(e) {
@@ -542,17 +627,16 @@
             const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
             
             let headerRow = rows.findIndex(r => r && r.some(c => c && c.toString().toLowerCase().includes('employee')));
-            if (headerRow === -1) { showToast("No header row"); return; }
+            if (headerRow === -1) { showToast("No header row with 'Employee Code'"); return; }
             
             const headers = rows[headerRow];
             const codeIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('employee code'));
             const inboundIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('inbound'));
             const outboundIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('outbound'));
             const emailIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('email'));
-            const targetIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('target'));
-            const csatIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('csat'));
             const workingIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('working'));
             const absentIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('absent'));
+            const targetIdx = headers.findIndex(h => h && h.toString().toLowerCase().includes('target'));
             
             const newData = [];
             for (let i = headerRow+1; i < rows.length; i++) {
@@ -561,23 +645,27 @@
                 const code = row[codeIdx].toString().trim();
                 const emp = employees.find(e => e.code === code);
                 if (!emp) continue;
+                
                 const inbound = parseFloat(row[inboundIdx]) || 0;
                 const outbound = parseFloat(row[outboundIdx]) || 0;
                 const email = parseFloat(row[emailIdx]) || 0;
-                const target = parseFloat(row[targetIdx]) || 1000;
-                const csat = parseFloat(row[csatIdx]) || 2.5;
                 const workingDays = parseFloat(row[workingIdx]) || 23;
                 const absent = parseFloat(row[absentIdx]) || 0;
-                newData.push({ code: emp.code, total: inbound+outbound+email, target, csat, workingDays, absent });
+                const target = parseFloat(row[targetIdx]) || 1000;
+                const achieved = inbound + outbound + email;
+                const attendance = ((workingDays - absent) / workingDays) * 100;
+                
+                newData.push({ code: emp.code, achieved, target, attendance: attendance.toFixed(1) });
             }
+            
             if (newData.length) {
                 financialYears[currentFY].data[currentMonth] = newData;
                 saveToStorage();
                 renderMonthly();
-                renderFYView();
-                renderAllRatings();
-                showToast(`Loaded ${newData.length} records`);
-            } else showToast("No valid records");
+                renderAnnual();
+                renderKRA();
+                showToast(`Loaded ${newData.length} records for ${currentMonth}`);
+            } else showToast("No valid records found");
         };
         reader.readAsArrayBuffer(file);
         this.value = '';
@@ -627,12 +715,12 @@
         document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         event.target.classList.add('active');
-        let id = tab === 'ratings' ? 'ratings-section' : tab === 'supervisors' ? 'supervisors-section' : `${tab}-section`;
+        let id = tab === 'annual' ? 'annual-section' : tab === 'kra' ? 'kra-section' : tab === 'ratings' ? 'ratings-section' : tab === 'employees' ? 'employees-section' : 'monthly-section';
         document.getElementById(id).classList.add('active');
+        if (tab === 'annual') renderAnnual();
+        if (tab === 'kra') renderKRA();
         if (tab === 'ratings') renderAllRatings();
-        if (tab === 'supervisors') renderSupervisorDetail();
         if (tab === 'employees') renderEmployeeGrid();
-        if (tab === 'fy') renderFYView();
     };
     
     window.toggleTheme = () => {
@@ -655,7 +743,8 @@
                 renderYearSelector();
                 renderMonthSelector();
                 renderMonthly();
-                renderFYView();
+                renderAnnual();
+                renderKRA();
                 renderAllRatings();
                 showToast("Loaded shared data!");
             } catch(e) {}
@@ -667,13 +756,13 @@
     renderYearSelector();
     renderMonthSelector();
     renderMonthly();
-    renderFYView();
+    renderAnnual();
+    renderKRA();
     renderAllRatings();
-    renderSupervisorDetail();
     renderEmployeeGrid();
     loadFromHash();
     document.getElementById("searchEmployee")?.addEventListener("input", renderEmployeeGrid);
-    showToast("Ready! Select a month to start");
+    showToast("Ready! All ratings are editable by supervisors.");
 </script>
 </body>
 </html>
