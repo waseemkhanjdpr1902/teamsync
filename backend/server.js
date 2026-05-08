@@ -298,4 +298,69 @@ app.get('/api/reports/annual/:fy', authenticateToken, (req, res) => {
 app.get('/api/stats', authenticateToken, (req, res) => {
     db.get(`SELECT 
                 (SELECT COUNT(*) FROM employees WHERE status = 'active') as total_employees,
-                (SELECT AVG(final_rating) FROM monthly_per
+                (SELECT AVG(final_rating) FROM monthly_performance WHERE year_month = (
+                    SELECT year_month FROM monthly_performance ORDER BY updated_at DESC LIMIT 1
+                )) as current_avg_rating,
+                (SELECT COUNT(*) FROM monthly_performance WHERE updated_at > datetime('now', '-30 days')) as recent_updates`,
+        (err, row) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json(row);
+        });
+});
+
+// Export full database as JSON (for backup)
+app.get('/api/export', authenticateToken, requireAdmin, (req, res) => {
+    const backup = {};
+    
+    db.all("SELECT * FROM employees", (err, employees) => {
+        if (err) return res.status(500).json({ error: err.message });
+        backup.employees = employees;
+        
+        db.all("SELECT * FROM monthly_performance", (err, performance) => {
+            if (err) return res.status(500).json({ error: err.message });
+            backup.performance = performance;
+            backup.exportDate = new Date().toISOString();
+            res.json(backup);
+        });
+    });
+});
+
+// Import backup
+app.post('/api/import', authenticateToken, requireAdmin, (req, res) => {
+    const { employees, performance } = req.body;
+    
+    db.run("BEGIN TRANSACTION");
+    
+    employees.forEach(emp => {
+        db.run(`INSERT OR REPLACE INTO employees (code, name, team, process, status, doj) 
+                VALUES (?, ?, ?, ?, ?, ?)`, [emp.code, emp.name, emp.team, emp.process, emp.status, emp.doj]);
+    });
+    
+    performance.forEach(perf => {
+        db.run(`INSERT OR REPLACE INTO monthly_performance 
+                (employee_code, year_month, achieved, target, csat, attendance, auto_rating, final_rating, comment)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [perf.employee_code, perf.year_month, perf.achieved, perf.target, perf.csat, perf.attendance, perf.auto_rating, perf.final_rating, perf.comment]);
+    });
+    
+    db.run("COMMIT", (err) => {
+        if (err) {
+            db.run("ROLLBACK");
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Import successful' });
+    });
+});
+
+// Shareable link endpoint (creates temporary token)
+app.post('/api/share', authenticateToken, (req, res) => {
+    const { data, expiresIn } = req.body;
+    const shareToken = jwt.sign({ data, expiresAt: Date.now() + (expiresIn || 7 * 24 * 60 * 60 * 1000) }, JWT_SECRET, { expiresIn: '7d' });
+    res.json({ shareUrl: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/shared/${shareToken}` });
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📊 API endpoints available at /api/`);
+});
