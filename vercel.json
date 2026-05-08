@@ -1,28 +1,22 @@
 {
-  "name": "teamsync-performance",
+  "name": "teamsync-plum",
   "version": 2,
-  "builds": [
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/dashboard.html"
+    },
+    {
+      "src": "/landing",
+      "dest": "/landing.html"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/$1"
     }
-  ],
-  "env": {
-    "JWT_SECRET": "@jwt_secret",
-    "NODE_ENV": "production"
-  }
+  ]
 }
