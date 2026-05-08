@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamSync Pro · Enterprise Performance Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--primary); }
+        
+        .btn-login {
+            background: var(--primary);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 40px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            flex: 1;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(59,130,246,0.2);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(59,130,246,0.3);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .hero-highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px var(--primary);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .stat-item h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 40px;
+            background: var(--dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 50px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 40px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            color: var(--gray);
+        }
+        
+        .pricing-features li i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            margin: 80px 40px;
+            padding: 60px;
+            border-radius: 40px;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0f172a;
+            padding: 60px 40px 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray);
+        }
+        
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; text-align: center; padding: 100px 20px 60px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .pricing-card.popular { transform: scale(1); }
+            .cta { margin: 40px 20px; padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">TeamSync Pro</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="dashboard.html" class="btn-login"><i class="fas fa-rocket"></i> Launch App</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-chart-line"></i> Performance Management 2.0
+            </div>
+            <h1>
+                Transform Your Team's<br>
+                <span class="hero-highlight">Performance Tracking</span>
+            </h1>
+            <p>Real-time ratings, collaborative reviews, and actionable insights — all in one powerful platform.</p>
+            <div class="hero-buttons">
+                <a href="dashboard.html" class="btn-primary"><i class="fas fa-arrow-right"></i> Get Started Free</a>
+                <a href="#demo" class="btn-outline"><i class="fas fa-play"></i> Watch Demo</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Active Teams</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10K+</h3>
+                    <p>Agents Rated</p>
+                </div>
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p>Satisfaction</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="50" y="100" width="300" height="250" rx="20" fill="url(#grad)" stroke="#3b82f6" stroke-width="2"/>
+                <rect x="80" y="130" width="240" height="30" rx="8" fill="#2d3748"/>
+                <rect x="80" y="175" width="200" height="15" rx="5" fill="#4a5568"/>
+                <rect x="80" y="200" width="240" height="15" rx="5" fill="#4a5568"/>
+                <rect x="80" y="225" width="180" height="15" rx="5" fill="#4a5568"/>
+                <circle cx="100" cy="280" r="30" fill="#3b82f6" opacity="0.3"/>
+                <circle cx="200" cy="280" r="30" fill="#8b5cf6" opacity="0.3"/>
+                <circle cx="300" cy="280" r="30" fill="#10b981" opacity="0.3"/>
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2"/>
+                        <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.2"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2 class="section-title">Everything You Need</h2>
+        <p class="section-subtitle">Powerful features to streamline performance management</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-simple"></i></div>
+                <h3>Real-time Ratings</h3>
+                <p>Auto-calculated ratings based on productivity, CSAT, and attendance with customizable weightages.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                <h3>Team Collaboration</h3>
+                <p>Shareable links, backup/restore, and real-time sync across your entire organization.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-file-excel"></i></div>
+                <h3>Export & Reports</h3>
+                <p>Monthly, annual, and custom reports in Excel format with one click.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Trend Analysis</h3>
+                <p>Visual charts and individual performance tracking over time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+                <h3>Fully Configurable</h3>
+                <p>Customize rating thresholds, weightages, and financial years.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Secure & Private</h3>
+                <p>Your data stays in your browser — we don't store anything on our servers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <h2 class="section-title">Simple, Transparent Pricing</h2>
+        <p class="section-subtitle">Choose the plan that works for your team</p>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Free</h3>
+                <div class="price">$0<span>/month</span></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Up to 10 agents</li>
+                    <li><i class="fas fa-check"></i> Basic reports</li>
+                    <li><i class="fas fa-check"></i> Manual data entry</li>
+                    <li><i class="fas fa-check"></i> Export to Excel</li>
+                </ul>
+                <a href="dashboard.html" class="btn-primary">Get Started</a>
+            </div>
+            <div class="pricing-card popular">
+                <div class="popular-badge">Most Popular</div>
+                <h3>Pro</h3>
+                <div class="price">$29<span>/month</span></div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Unlimited agents</li>
+                    <li><i class="fas fa-check"></i> Advanced analytics</li>
+                    <li><i class="fas fa-check"></i> Team collaboration</li>
+                    <li><i class="fas fa-check"></i> Priority support</li>
+                    <li><i class="fas fa-check"></i> Custom branding</li>
+                </ul>
+                <a href="dashboard.html" class="btn-primary">Start Free Trial</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">Custom</div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Everything in Pro</li>
+                    <li><i class="fas fa-check"></i> Dedicated account manager</li>
+                    <li><i class="fas fa-check"></i> API access</li>
+                    <li><i class="fas fa-check"></i> SSO integration</li>
+                    <li><i class="fas fa-check"></i> On-premise deployment</li>
+                </ul>
+                <a href="#contact" class="btn-outline">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Ready to Transform Your Performance Management?</h2>
+        <p>Join thousands of teams already using TeamSync Pro</p>
+        <div class="cta-buttons">
+            <a href="dashboard.html" class="btn-primary" style="background: white; color: #0f172a;"><i class="fas fa-rocket"></i> Start Free</a>
+            <a href="#demo" class="btn-outline" style="border-color: white;"><i class="fas fa-calendar"></i> Schedule Demo</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">TeamSync Pro</div>
+                <p style="color: #64748b;">Empowering teams to achieve excellence through data-driven performance management.</p>
+            </div>
+            <div>
+                <h4>Product</h4>
+                <p><a href="#features" style="color: #64748b; text-decoration: none;">Features</a></p>
+                <p><a href="#pricing" style="color: #64748b; text-decoration: none;">Pricing</a></p>
+                <p><a href="#" style="color: #64748b; text-decoration: none;">Demo</a></p>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <p><a href="#" style="color: #64748b; text-decoration: none;">About</a></p>
+                <p><a href="#" style="color: #64748b; text-decoration: none;">Blog</a></p>
+                <p><a href="#" style="color: #64748b; text-decoration: none;">Careers</a></p>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <p><a href="#" style="color: #64748b; text-decoration: none;">Help Center</a></p>
+                <p><a href="#" style="color: #64748b; text-decoration: none;">Contact</a></p>
+                <p><a href="#" style="color: #64748b; text-decoration: none;">Privacy Policy</a></p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 TeamSync Pro. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
