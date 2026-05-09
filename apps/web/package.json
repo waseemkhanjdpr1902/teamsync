@@ -3,12 +3,11 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
+ "scripts": {
   "dev": "vite",
   "build": "vite build",
-  "start": "vite preview",
-  "lint": "eslint . --quiet",
-  "lint:warn": "eslint ."
+  "start": "vite preview"
+}
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -64,6 +63,9 @@
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
     "zod": "^4.3.6"
+    "vite": "^7.3.1",
+    "@vitejs/plugin-react": "^5.1.4"
+}
   },
   "devDependencies": {
     "@babel/generator": "^7.26.3",
