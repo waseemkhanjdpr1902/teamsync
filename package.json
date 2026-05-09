@@ -1,18 +1,29 @@
 {
   "name": "teamsync",
   "type": "module",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "vite preview"
+    "start": "vite preview",
+    "lint": "eslint . --quiet",
+    "lint:warn": "eslint ."
   },
   "dependencies": {
-      "... all your React/Radix deps ..."
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.13.0",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.469.0",
+    "jspdf": "^2.5.1",
+    "qrcode.react": "^4.0.1",
+    "clsx": "^2.1.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-      "@vitejs/plugin-react": "^5.1.4",
-      "vite": "^7.3.1",
-      "... rest ..."
+    "@vitejs/plugin-react": "^5.1.4",
+    "vite": "^7.3.1",
+    "eslint": "^9.39.4"
   }
 }
