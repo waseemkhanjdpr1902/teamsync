@@ -6,11 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-  build: {
-    outDir: "../../dist/apps/web",
-    emptyOutDir: true,
-  },
+      "@": path.resolve(__dirname, "./src")
+    }
+  }
 });
